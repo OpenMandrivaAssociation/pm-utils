@@ -62,7 +62,7 @@ useful for power management.
 %patch3 -p1 -b .cmdline
 %patch4 -p1 -b .fhs
 %patch5 -p1 -b .functionpath
-%{_bindir}/autoreconf -i --verbose -f
+autoreconf
 
 %build
 %configure2_5x
