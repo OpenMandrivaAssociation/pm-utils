@@ -62,9 +62,7 @@ useful for power management.
 %patch3 -p1 -b .cmdline
 %patch4 -p1 -b .fhs
 %patch5 -p1 -b .functionpath
-
-#needed by patch4
-automake-1.9
+%{_bindir}/autoreconf -i --verbose -f
 
 %build
 %configure2_5x
