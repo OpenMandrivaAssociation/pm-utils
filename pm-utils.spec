@@ -1,10 +1,6 @@
-%define name pm-utils
-%define version 0.99.2
-%define rel %mkrel 0.20070307.9
-
-Name: %name
-Version: %version
-Release: %rel 
+Name: pm-utils
+Version: 0.99.2
+Release: %mkrel 0.20070307.10
 Summary: Power management utilities and scripts
 License: GPL
 Group: System/Kernel and hardware
@@ -99,7 +95,7 @@ popd
 install -m 755 %{SOURCE20} %{SOURCE21} %{SOURCE22} %{SOURCE23} %{SOURCE24} %{SOURCE25} %{SOURCE26} %{SOURCE27} $RPM_BUILD_ROOT%{_datadir}/pm-utils/sleep.d/
 rm $RPM_BUILD_ROOT%{_datadir}/pm-utils/sleep.d/01grub
 
-install -m 755 %{SOURCE50} -D $RPM_BUILD_ROOT%{_sysconfdir}/dbus-1/system.d/power-policy.conf
+install -m 644 %{SOURCE50} -D $RPM_BUILD_ROOT%{_sysconfdir}/dbus-1/system.d/power-policy.conf
 install -m 755 %{SOURCE51} $RPM_BUILD_ROOT%{_bindir}/pm-has-power-policy
 
 %clean
@@ -119,5 +115,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pm-utils
 %{_datadir}/pm-utils
 %{_mandir}/man*/*
-
-
