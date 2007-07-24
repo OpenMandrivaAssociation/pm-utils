@@ -62,6 +62,8 @@ useful for power management.
 %patch3 -p1 -b .cmdline
 %patch4 -p1 -b .fhs
 %patch5 -p1 -b .functionpath
+
+#needed by patch4
 autoreconf
 
 %build
