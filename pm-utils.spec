@@ -1,6 +1,10 @@
-Name: pm-utils
-Version: 0.99.2
-Release: %mkrel 0.20070307.10
+%define name pm-utils
+%define version 0.99.2
+%define rel %mkrel 0.20070307.11
+
+Name: %name
+Version: %version
+Release: %rel 
 Summary: Power management utilities and scripts
 License: GPL
 Group: System/Kernel and hardware
