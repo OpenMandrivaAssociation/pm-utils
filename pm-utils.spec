@@ -1,6 +1,6 @@
 %define name pm-utils
 %define version 0.99.3
-%define rel %mkrel 1
+%define rel %mkrel 2
 
 Name: %name
 Version: %version
@@ -41,6 +41,7 @@ Patch7: pm-utils-0.99.3-vbe-redirect.patch
 Patch8: pm-utils-0.99.3-disable.patch
 # (fc) 0.99.3-1mdv cvs fixes (radeon quirks, export variable, add support for brightness restoration)
 Patch9: pm-utils-0.99.3-cvsfixes.patch
+Patch10: pm-utils-0.99.3-resume_label.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 BuildRequires: hal-devel 
@@ -78,6 +79,7 @@ useful for power management.
 %patch7 -p1 -b .vbe-redirect
 %patch8 -p1 -b .disable
 %patch9 -p1 -b .cvsfixes
+%patch10 -p1 -b .resume_label
 
 #needed by patch4
 autoreconf
