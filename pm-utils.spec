@@ -43,6 +43,7 @@ Patch8: pm-utils-0.99.3-disable.patch
 Patch9: pm-utils-0.99.3-cvsfixes.patch
 Patch10: pm-utils-0.99.3-resume_label.patch
 
+BuildRoot: %{_tmppath}/%{name}-%{version}-root
 BuildRequires: hal-devel 
 BuildRequires: pkgconfig 
 BuildRequires: pciutils-devel
