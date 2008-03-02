@@ -1,6 +1,6 @@
 %define name pm-utils
-%define version 0.99.3
-%define rel %mkrel 7
+%define version 0.99.4
+%define rel %mkrel 1
 
 Name: %name
 Version: %version
@@ -28,19 +28,15 @@ Source27: 15sound
 Source50: power-policy.conf
 Source51: pm-has-power-policy
 Patch1:	pm-utils-0.99.3-service_status.patch
-Patch2: pm-utils-0.99.3-s2disk.patch
+Patch2: pm-utils-0.99.4-s2disk.patch
 # (fc) 0.99.2-0.20070307.1mdv allow pm-hibernate/suspend to be called on command line
 Patch3: pm-utils-0.99.2-cmdline.patch
 # (fc) 0.99.2-0.20070307.2mdv be really FHS compliant
-Patch4: pm-utils-fhs.patch
+Patch4: pm-utils-0.99.4-fhs.patch
 # (fc) 0.99.3-1mdv fix config loading (CVS)
 Patch6: pm-utils-0.99.3-cfg.patch
-# (fc) 0.99.3-1mdv remove vbe input redirect (CVS)
-Patch7: pm-utils-0.99.3-vbe-redirect.patch
 # (fc) 0.99.3-1mdv allow to disable suspend/hibernate using config file (Fedora bug #216459)
 Patch8: pm-utils-0.99.3-disable.patch
-# (fc) 0.99.3-1mdv cvs fixes (radeon quirks, export variable, add support for brightness restoration)
-Patch9: pm-utils-0.99.3-cvsfixes.patch
 Patch10: pm-utils-0.99.3-resume_label.patch
 # (fc) 0.99.3-5mdv do not allow kernel hibernation if no resume partition is set
 Patch11: pm-utils-0.99.3-checkresume.patch
@@ -78,9 +74,7 @@ useful for power management.
 %patch3 -p1 -b .cmdline
 %patch4 -p1 -b .fhs
 %patch6 -p1 -b .cfg
-%patch7 -p1 -b .vbe-redirect
 %patch8 -p1 -b .disable
-%patch9 -p1 -b .cvsfixes
 %patch10 -p1 -b .resume_label
 %patch11 -p1 -b .checkresume
 
