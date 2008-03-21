@@ -1,6 +1,6 @@
 %define name pm-utils
 %define version 0.99.4
-%define rel %mkrel 1
+%define rel %mkrel 2
 
 Name: %name
 Version: %version
@@ -25,6 +25,7 @@ Source24: 40xlock
 Source25: 06mysqld
 Source26: 00splash
 Source27: 15sound
+Source28: 93laptop-mode
 Source50: power-policy.conf
 Source51: pm-has-power-policy
 Patch1:	pm-utils-0.99.3-service_status.patch
@@ -107,7 +108,7 @@ for x in pm-hibernate pm-powersave pm-restart pm-shutdown pm-suspend pm-suspend-
 done
 popd
 
-install -m 755 %{SOURCE20} %{SOURCE21} %{SOURCE22} %{SOURCE23} %{SOURCE24} %{SOURCE25} %{SOURCE26} %{SOURCE27} $RPM_BUILD_ROOT%{_datadir}/pm-utils/sleep.d/
+install -m 755 %{SOURCE20} %{SOURCE21} %{SOURCE22} %{SOURCE23} %{SOURCE24} %{SOURCE25} %{SOURCE26} %{SOURCE27} %{SOURCE28} $RPM_BUILD_ROOT%{_datadir}/pm-utils/sleep.d/
 rm $RPM_BUILD_ROOT%{_datadir}/pm-utils/sleep.d/01grub
 
 install -m 644 %{SOURCE50} -D $RPM_BUILD_ROOT%{_sysconfdir}/dbus-1/system.d/power-policy.conf
