@@ -1,6 +1,6 @@
 %define name pm-utils
 %define version 0.99.4
-%define rel %mkrel 2
+%define rel %mkrel 3
 
 Name: %name
 Version: %version
@@ -25,7 +25,7 @@ Source24: 40xlock
 Source25: 06mysqld
 Source26: 00splash
 Source27: 15sound
-Source28: 93laptop-mode
+Source28: 91laptop-mode
 Source50: power-policy.conf
 Source51: pm-has-power-policy
 Patch1:	pm-utils-0.99.3-service_status.patch
