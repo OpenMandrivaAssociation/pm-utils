@@ -1,6 +1,6 @@
 %define name pm-utils
 %define version 0.99.4
-%define rel %mkrel 3
+%define rel %mkrel 4
 
 Name: %name
 Version: %version
@@ -31,7 +31,7 @@ Source51: pm-has-power-policy
 Patch1:	pm-utils-0.99.3-service_status.patch
 Patch2: pm-utils-0.99.4-s2disk.patch
 # (fc) 0.99.2-0.20070307.1mdv allow pm-hibernate/suspend to be called on command line
-Patch3: pm-utils-0.99.2-cmdline.patch
+Patch3: pm-utils-0.99.4-cmdline.patch
 # (fc) 0.99.2-0.20070307.2mdv be really FHS compliant
 Patch4: pm-utils-0.99.4-fhs.patch
 # (fc) 0.99.3-1mdv fix config loading (CVS)
