@@ -62,6 +62,15 @@ Conflicts: initscripts < 8.48-5mdv2007.1
 The pm-utils package contains utilities and scripts
 useful for power management.
 
+%package devel
+Summary: Files for development using %{name}
+Group: Development/Other
+Requires: %{name} = %{version}
+
+%description devel
+This package contains the pkg-config files for development
+when building programs that use %{name}.
+
 %prep
 %setup -q
 %patch1 -p1 -b .service_status
@@ -130,3 +139,7 @@ fi
 %{_libdir}/pm-utils
 %{_mandir}/man*/*
 %ghost %verify(not md5 size mtime) %{_var}/log/pm-suspend.log
+
+%files devel
+%defattr(-,root,root)
+%{_libdir}/pkgconfig/%{name}.pc
