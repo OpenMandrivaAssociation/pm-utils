@@ -39,7 +39,6 @@ Patch11: pm-utils-0.99.3-checkresume.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 BuildRequires: hal-devel 
 BuildRequires: pkgconfig 
-BuildRequires: pciutils-devel
 BuildRequires: dbus-devel
 
 Obsoletes: pmscripts
