@@ -28,10 +28,10 @@ Source27: 15sound
 Source28: 91laptop-mode
 Source50: power-policy.conf
 Source51: pm-has-power-policy
+# from upstream git auto-quirks branch
+Patch0: pm-utils-1.2.0-auto-quirks.patch
 Patch1:	pm-utils-1.2.0-service_status.patch
 Patch2: pm-utils-0.99.4-s2disk.patch
-# (fc) 0.99.2-0.20070307.1mdv allow pm-hibernate/suspend to be called on command line
-Patch3: pm-utils-0.99.4-cmdline.patch
 Patch10: pm-utils-0.99.3-resume_label.patch
 # (fc) 0.99.3-5mdv do not allow kernel hibernation if no resume partition is set
 Patch11: pm-utils-0.99.3-checkresume.patch
@@ -73,11 +73,14 @@ when building programs that use %{name}.
 
 %prep
 %setup -q
+%patch0 -p1 -b .auto-quirks
 %patch1 -p1 -b .service_status
 %patch2 -p1 -b .s2disk
-%patch3 -p1 -b .cmdline
 %patch10 -p1 -b .resume_label
 %patch11 -p1 -b .checkresume
+
+# needed by auto-quirks patch0
+autoreconf
 
 %build
 %configure2_5x
