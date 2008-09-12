@@ -44,6 +44,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-root
 BuildRequires: hal-devel 
 BuildRequires: pkgconfig 
 BuildRequires: dbus-devel
+BuildRequires: xmlto
 
 Obsoletes: pmscripts
 Obsoletes: suspend-scripts
