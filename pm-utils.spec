@@ -34,8 +34,6 @@ Patch2: pm-utils-0.99.4-s2disk.patch
 Patch3: pm-utils-0.99.4-cmdline.patch
 # (fc) 0.99.2-0.20070307.2mdv be really FHS compliant
 Patch4: pm-utils-0.99.4-fhs.patch
-# (fc) 0.99.3-1mdv fix config loading (CVS)
-Patch6: pm-utils-0.99.3-cfg.patch
 # (fc) 0.99.3-1mdv allow to disable suspend/hibernate using config file (Fedora bug #216459)
 Patch8: pm-utils-0.99.3-disable.patch
 Patch10: pm-utils-0.99.3-resume_label.patch
@@ -74,7 +72,6 @@ useful for power management.
 %patch2 -p1 -b .s2disk
 %patch3 -p1 -b .cmdline
 %patch4 -p1 -b .fhs
-%patch6 -p1 -b .cfg
 %patch8 -p1 -b .disable
 %patch10 -p1 -b .resume_label
 %patch11 -p1 -b .checkresume
