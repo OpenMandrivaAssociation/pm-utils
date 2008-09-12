@@ -32,6 +32,7 @@ Source51: pm-has-power-policy
 # from git auto-quirks branch
 Patch0: pm-utils-1.2.0-auto-quirks.patch
 Patch1: pm-utils-1.2.0-has_parameter.patch
+Patch2: pm-utils-1.2.0-logging-help.patch
 #- Mandriva
 Patch100: pm-utils-1.2.0-service_status.patch
 Patch101: pm-utils-1.2.0-s2diskdev.patch
@@ -78,6 +79,7 @@ when building programs that use %{name}.
 #- upstream
 %patch0 -p1 -b .auto-quirks
 %patch1 -p1 -b .has_parameter
+%patch2 -p1 -b .logging-help
 #- Mandriva
 %patch100 -p1 -b .service_status
 %patch101 -p1 -b .s2diskdev
