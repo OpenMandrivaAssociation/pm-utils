@@ -84,38 +84,38 @@ when building programs that use %{name}.
 %make
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %makeinstall_std
 
-install -m 755 -d $RPM_BUILD_ROOT/%{_sysconfdir}/pam.d
+install -m 755 -d %{buildroot}%{_sysconfdir}/pam.d
 for x in %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE8} ; do
 	y=$(basename ${x%%.pam})
-	install -T -m 644 $x $RPM_BUILD_ROOT/%{_sysconfdir}/pam.d/$y
+	install -T -m 644 $x %{buildroot}%{_sysconfdir}/pam.d/$y
 done
-install -m 755 -d $RPM_BUILD_ROOT/%{_sysconfdir}/security/console.apps/
+install -m 755 -d %{buildroot}%{_sysconfdir}/security/console.apps/
 for x in %{SOURCE4} %{SOURCE5} %{SOURCE6} %{SOURCE7} ; do
 	y=$(basename ${x%%.app})
-	install -T -m 644 $x $RPM_BUILD_ROOT/%{_sysconfdir}/security/console.apps/$y
+	install -T -m 644 $x %{buildroot}%{_sysconfdir}/security/console.apps/$y
 done
-install -m 755 -d $RPM_BUILD_ROOT/%{_bindir}
-pushd $RPM_BUILD_ROOT/%{_bindir}
+install -m 755 -d %{buildroot}%{_bindir}
+pushd %{buildroot}%{_bindir}
 for x in pm-hibernate pm-powersave pm-restart pm-shutdown pm-suspend pm-suspend-hybrid ; do
 	ln -sf consolehelper $x
 done
 popd
 
-install -m 755 %{SOURCE20} %{SOURCE21} %{SOURCE22} %{SOURCE23} %{SOURCE24} %{SOURCE25} %{SOURCE26} %{SOURCE27} %{SOURCE28} $RPM_BUILD_ROOT%{_libdir}/pm-utils/sleep.d/
-rm $RPM_BUILD_ROOT%{_libdir}/pm-utils/sleep.d/01grub
+install -m 755 %{SOURCE20} %{SOURCE21} %{SOURCE22} %{SOURCE23} %{SOURCE24} %{SOURCE25} %{SOURCE26} %{SOURCE27} %{SOURCE28} %{buildroot}%{_libdir}/pm-utils/sleep.d/
+rm %{buildroot}%{_libdir}/pm-utils/sleep.d/01grub
 
-install -m 644 %{SOURCE50} -D $RPM_BUILD_ROOT%{_sysconfdir}/dbus-1/system.d/power-policy.conf
-install -m 755 %{SOURCE51} $RPM_BUILD_ROOT%{_bindir}/pm-has-power-policy
-install -d -m 755 $RPM_BUILD_ROOT/var/log
-install -m 600 /dev/null $RPM_BUILD_ROOT/var/log/pm-suspend.log
+install -m 644 %{SOURCE50} -D %{buildroot}%{_sysconfdir}/dbus-1/system.d/power-policy.conf
+install -m 755 %{SOURCE51} %{buildroot}%{_bindir}/pm-has-power-policy
+install -d -m 755 %{buildroot}/var/log
+install -m 600 /dev/null %{buildroot}/var/log/pm-suspend.log
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %post
 if [ ! -a %{_var}/log/pm-suspend.log ] ; then
