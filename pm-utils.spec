@@ -28,7 +28,7 @@ Source27: 15sound
 Source28: 91laptop-mode
 Source50: power-policy.conf
 Source51: pm-has-power-policy
-Patch1:	pm-utils-0.99.3-service_status.patch
+Patch1:	pm-utils-1.2.0-service_status.patch
 Patch2: pm-utils-0.99.4-s2disk.patch
 # (fc) 0.99.2-0.20070307.1mdv allow pm-hibernate/suspend to be called on command line
 Patch3: pm-utils-0.99.4-cmdline.patch
