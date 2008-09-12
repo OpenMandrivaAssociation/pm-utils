@@ -32,8 +32,6 @@ Patch1:	pm-utils-1.2.0-service_status.patch
 Patch2: pm-utils-0.99.4-s2disk.patch
 # (fc) 0.99.2-0.20070307.1mdv allow pm-hibernate/suspend to be called on command line
 Patch3: pm-utils-0.99.4-cmdline.patch
-# (fc) 0.99.2-0.20070307.2mdv be really FHS compliant
-Patch4: pm-utils-0.99.4-fhs.patch
 Patch10: pm-utils-0.99.3-resume_label.patch
 # (fc) 0.99.3-5mdv do not allow kernel hibernation if no resume partition is set
 Patch11: pm-utils-0.99.3-checkresume.patch
@@ -69,12 +67,8 @@ useful for power management.
 %patch1 -p1 -b .service_status
 %patch2 -p1 -b .s2disk
 %patch3 -p1 -b .cmdline
-%patch4 -p1 -b .fhs
 %patch10 -p1 -b .resume_label
 %patch11 -p1 -b .checkresume
-
-#needed by patch4
-autoreconf
 
 %build
 %configure2_5x
@@ -102,8 +96,8 @@ for x in pm-hibernate pm-powersave pm-restart pm-shutdown pm-suspend pm-suspend-
 done
 popd
 
-install -m 755 %{SOURCE20} %{SOURCE21} %{SOURCE22} %{SOURCE23} %{SOURCE24} %{SOURCE25} %{SOURCE26} %{SOURCE27} %{SOURCE28} $RPM_BUILD_ROOT%{_datadir}/pm-utils/sleep.d/
-rm $RPM_BUILD_ROOT%{_datadir}/pm-utils/sleep.d/01grub
+install -m 755 %{SOURCE20} %{SOURCE21} %{SOURCE22} %{SOURCE23} %{SOURCE24} %{SOURCE25} %{SOURCE26} %{SOURCE27} %{SOURCE28} $RPM_BUILD_ROOT%{_libdir}/pm-utils/sleep.d/
+rm $RPM_BUILD_ROOT%{_libdir}/pm-utils/sleep.d/01grub
 
 install -m 644 %{SOURCE50} -D $RPM_BUILD_ROOT%{_sysconfdir}/dbus-1/system.d/power-policy.conf
 install -m 755 %{SOURCE51} $RPM_BUILD_ROOT%{_bindir}/pm-has-power-policy
@@ -132,6 +126,5 @@ fi
 %{_bindir}/*
 %{_sbindir}/*
 %{_libdir}/pm-utils
-%{_datadir}/pm-utils
 %{_mandir}/man*/*
 %ghost %verify(not md5 size mtime) %{_var}/log/pm-suspend.log
