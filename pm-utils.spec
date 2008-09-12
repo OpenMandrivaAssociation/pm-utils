@@ -28,13 +28,15 @@ Source27: 15sound
 Source28: 91laptop-mode
 Source50: power-policy.conf
 Source51: pm-has-power-policy
-# from upstream git auto-quirks branch
+#- upstream
+# from git auto-quirks branch
 Patch0: pm-utils-1.2.0-auto-quirks.patch
-Patch1:	pm-utils-1.2.0-service_status.patch
-Patch2: pm-utils-1.2.0-s2diskdev.patch
+#- Mandriva
+Patch100: pm-utils-1.2.0-service_status.patch
+Patch101: pm-utils-1.2.0-s2diskdev.patch
 # (fc) 0.99.3-5mdv do not allow kernel hibernation if no resume partition is set
-Patch3: pm-utils-1.2.0-checkresume.patch
-Patch4: pm-utils-1.2.0-uswsusp-default.patch
+Patch102: pm-utils-1.2.0-checkresume.patch
+Patch103: pm-utils-1.2.0-uswsusp-default.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 BuildRequires: hal-devel 
@@ -72,11 +74,13 @@ when building programs that use %{name}.
 
 %prep
 %setup -q
+#- upstream
 %patch0 -p1 -b .auto-quirks
-%patch1 -p1 -b .service_status
-%patch2 -p1 -b .s2diskdev
-%patch3 -p1 -b .checkresume
-%patch4 -p1 -b .uswsusp-default
+#- Mandriva
+%patch100 -p1 -b .service_status
+%patch101 -p1 -b .s2diskdev
+%patch102 -p1 -b .checkresume
+%patch103 -p1 -b .uswsusp-default
 
 # needed by auto-quirks patch0
 autoreconf
