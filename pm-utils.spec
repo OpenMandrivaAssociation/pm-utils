@@ -34,6 +34,7 @@ Patch1:	pm-utils-1.2.0-service_status.patch
 Patch2: pm-utils-1.2.0-s2diskdev.patch
 # (fc) 0.99.3-5mdv do not allow kernel hibernation if no resume partition is set
 Patch3: pm-utils-1.2.0-checkresume.patch
+Patch4: pm-utils-1.2.0-uswsusp-default.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 BuildRequires: hal-devel 
@@ -75,6 +76,7 @@ when building programs that use %{name}.
 %patch1 -p1 -b .service_status
 %patch2 -p1 -b .s2diskdev
 %patch3 -p1 -b .checkresume
+%patch4 -p1 -b .uswsusp-default
 
 # needed by auto-quirks patch0
 autoreconf
