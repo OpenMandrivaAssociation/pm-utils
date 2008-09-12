@@ -33,7 +33,7 @@ Patch0: pm-utils-1.2.0-auto-quirks.patch
 Patch1:	pm-utils-1.2.0-service_status.patch
 Patch2: pm-utils-1.2.0-s2diskdev.patch
 # (fc) 0.99.3-5mdv do not allow kernel hibernation if no resume partition is set
-Patch11: pm-utils-0.99.3-checkresume.patch
+Patch3: pm-utils-1.2.0-checkresume.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 BuildRequires: hal-devel 
@@ -74,7 +74,7 @@ when building programs that use %{name}.
 %patch0 -p1 -b .auto-quirks
 %patch1 -p1 -b .service_status
 %patch2 -p1 -b .s2diskdev
-%patch11 -p1 -b .checkresume
+%patch3 -p1 -b .checkresume
 
 # needed by auto-quirks patch0
 autoreconf
