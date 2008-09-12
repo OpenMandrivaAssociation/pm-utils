@@ -116,6 +116,8 @@ fi
 
 %files
 %defattr(-,root,root)
+%docdir %{_docdir}/%{name}
+%{_docdir}/%{name}/*
 %dir %{_sysconfdir}/pm
 %dir %{_sysconfdir}/pm/power.d
 %dir %{_sysconfdir}/pm/sleep.d
