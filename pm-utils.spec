@@ -1,6 +1,6 @@
 %define name pm-utils
-%define version 1.2.0
-%define rel %mkrel 4
+%define version 1.2.4
+%define rel %mkrel 0.1
 
 Name: %name
 Version: %version
@@ -27,16 +27,11 @@ Source27: 15sound
 Source28: 91laptop-mode
 Source50: power-policy.conf
 Source51: pm-has-power-policy
-#- upstream
-# from git auto-quirks branch
-Patch0: pm-utils-1.2.0-auto-quirks.patch
-Patch1: pm-utils-1.2.0-has_parameter.patch
-Patch2: pm-utils-1.2.0-logging-help.patch
 #- Mandriva
-Patch100: pm-utils-1.2.0-service_status.patch
-Patch101: pm-utils-1.2.0-s2diskdev.patch
+Patch100: pm-utils-1.2.4-service_status.patch
 # (fc) 0.99.3-5mdv do not allow kernel hibernation if no resume partition is set
-Patch102: pm-utils-1.2.0-checkresume.patch
+Patch101: pm-utils-1.2.4-checkresume.patch
+Patch102: pm-utils-1.2.4-s2diskdev.patch
 Patch103: pm-utils-1.2.0-uswsusp-default.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
@@ -56,6 +51,8 @@ Requires: vbetool
 Requires: hal-info
 Requires: suspend
 Requires: pm-fallback-policy
+#Requires: suspend-s2ram
+Requires: bootloader-utils
 
 Conflicts: apmd < 3.2.2-11mdv2007.1
 Conflicts: mkinitrd < 4.2.17-27mdv2007.1
@@ -76,18 +73,11 @@ when building programs that use %{name}.
 
 %prep
 %setup -q
-#- upstream
-%patch0 -p1 -b .auto-quirks
-%patch1 -p1 -b .has_parameter
-%patch2 -p1 -b .logging-help
 #- Mandriva
 %patch100 -p1 -b .service_status
-%patch101 -p1 -b .s2diskdev
-%patch102 -p1 -b .checkresume
+%patch101 -p1 -b .checkresume
+%patch102 -p1 -b .s2diskdev
 %patch103 -p1 -b .uswsusp-default
-
-# needed by auto-quirks patch0
-autoreconf
 
 %build
 %configure2_5x
