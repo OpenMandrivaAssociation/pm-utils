@@ -1,6 +1,6 @@
 %define name pm-utils
 %define version 1.2.4
-%define rel %mkrel 1
+%define rel %mkrel 2
 
 Name: %name
 Version: %version
@@ -33,6 +33,7 @@ Patch100: pm-utils-1.2.4-service_status.patch
 Patch101: pm-utils-1.2.4-checkresume.patch
 Patch102: pm-utils-1.2.4-s2diskdev.patch
 Patch103: pm-utils-1.2.0-uswsusp-default.patch
+Patch104: pm-utils-1.2.4-s2both_quirks.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 BuildRequires: hal-devel 
@@ -78,6 +79,7 @@ when building programs that use %{name}.
 %patch101 -p1 -b .checkresume
 %patch102 -p1 -b .s2diskdev
 %patch103 -p1 -b .uswsusp-default
+%patch104 -p1 -b .s2both_quirks
 
 %build
 %configure2_5x
