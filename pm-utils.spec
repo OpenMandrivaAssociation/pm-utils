@@ -1,6 +1,6 @@
 %define name pm-utils
 %define version 1.2.4
-%define rel %mkrel 2
+%define rel %mkrel 3
 
 Name: %name
 Version: %version
@@ -27,6 +27,9 @@ Source27: 15sound
 Source28: 91laptop-mode
 Source50: power-policy.conf
 Source51: pm-has-power-policy
+# upstream patches
+# fixes sched_smt_power_savings sysfs tunable (Debian bug #518680)
+Patch1:  pm-utils-1.2.4-sched-smt-powersavings.patch
 #- Mandriva
 Patch100: pm-utils-1.2.4-service_status.patch
 # (fc) 0.99.3-5mdv do not allow kernel hibernation if no resume partition is set
@@ -74,6 +77,7 @@ when building programs that use %{name}.
 
 %prep
 %setup -q
+%patch1 -p1 -b .sched-smt-powersavings
 #- Mandriva
 %patch100 -p1 -b .service_status
 %patch101 -p1 -b .checkresume
