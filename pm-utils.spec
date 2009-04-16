@@ -1,6 +1,6 @@
 %define name pm-utils
 %define version 1.2.4
-%define rel %mkrel 3
+%define rel %mkrel 4
 
 Name: %name
 Version: %version
