@@ -1,6 +1,6 @@
 %define name pm-utils
-%define version 1.2.4
-%define rel %mkrel 4
+%define version 1.2.5
+%define rel %mkrel 1
 
 Name: %name
 Version: %version
@@ -8,6 +8,7 @@ Release: %rel
 Summary: Power management utilities and scripts
 License: GPL
 Group: System/Kernel and hardware
+URL: http://pm-utils.freedesktop.org/wiki/
 Source0: pm-utils-%{version}.tar.gz
 Source1: pm-suspend.pam
 Source2: pm-hibernate.pam
@@ -29,7 +30,7 @@ Source50: power-policy.conf
 Source51: pm-has-power-policy
 # upstream patches
 # fixes sched_smt_power_savings sysfs tunable (Debian bug #518680)
-Patch1:  pm-utils-1.2.4-sched-smt-powersavings.patch
+# Patch1:  pm-utils-1.2.4-sched-smt-powersavings.patch
 #- Mandriva
 Patch100: pm-utils-1.2.4-service_status.patch
 # (fc) 0.99.3-5mdv do not allow kernel hibernation if no resume partition is set
@@ -78,7 +79,7 @@ when building programs that use %{name}.
 
 %prep
 %setup -q
-%patch1 -p1 -b .sched-smt-powersavings
+# %patch1 -p1 -b .sched-smt-powersavings
 #- Mandriva
 %patch100 -p1 -b .service_status
 %patch101 -p1 -b .checkresume
