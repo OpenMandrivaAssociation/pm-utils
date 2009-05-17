@@ -53,10 +53,11 @@ Requires: pciutils
 Requires: radeontool
 Requires: vbetool
 Requires: hal-info
-Requires: suspend
 Requires: pm-fallback-policy
 #Requires: suspend-s2ram
 Requires: bootloader-utils
+
+Suggests: suspend
 
 Conflicts: apmd < 3.2.2-11mdv2007.1
 Conflicts: mkinitrd < 4.2.17-27mdv2007.1
