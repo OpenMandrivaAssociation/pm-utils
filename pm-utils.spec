@@ -29,8 +29,7 @@ Source28: 91laptop-mode
 Source50: power-policy.conf
 Source51: pm-has-power-policy
 # upstream patches
-# fixes sched_smt_power_savings sysfs tunable (Debian bug #518680)
-# Patch1:  pm-utils-1.2.4-sched-smt-powersavings.patch
+Patch0: pm-utils-1.2.5-have_kms_typo.patch
 #- Mandriva
 Patch100: pm-utils-1.2.4-service_status.patch
 # (fc) 0.99.3-5mdv do not allow kernel hibernation if no resume partition is set
@@ -79,7 +78,7 @@ when building programs that use %{name}.
 
 %prep
 %setup -q
-# %patch1 -p1 -b .sched-smt-powersavings
+%patch0 -p1 -b .typo
 #- Mandriva
 %patch100 -p1 -b .service_status
 %patch101 -p1 -b .checkresume
