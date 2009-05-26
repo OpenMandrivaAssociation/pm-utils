@@ -1,6 +1,6 @@
 %define name pm-utils
 %define version 1.2.5
-%define rel %mkrel 2
+%define rel %mkrel 3
 
 Name: %name
 Version: %version
@@ -48,7 +48,7 @@ Obsoletes: pmscripts
 Obsoletes: suspend-scripts
 Provides: suspend-scripts = 1.27
 
-Requires: usermode 
+Requires: usermode-consoleonly
 Requires: pciutils
 Requires: radeontool
 Requires: vbetool
