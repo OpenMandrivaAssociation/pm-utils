@@ -1,6 +1,6 @@
 %define name pm-utils
 %define version 1.2.5
-%define rel %mkrel 3
+%define rel %mkrel 4
 
 Name: %name
 Version: %version
@@ -51,7 +51,9 @@ Provides: suspend-scripts = 1.27
 Requires: usermode-consoleonly
 Requires: pciutils
 Requires: radeontool
+%ifnarch %arm %mips
 Requires: vbetool
+%endif
 Requires: hal-info
 Requires: pm-fallback-policy
 #Requires: suspend-s2ram
