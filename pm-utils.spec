@@ -1,5 +1,5 @@
 %define name pm-utils
-%define version 1.2.6
+%define version 1.2.6.1
 %define rel %mkrel 1
 
 Name: %name
@@ -9,7 +9,7 @@ Summary: Power management utilities and scripts
 License: GPL
 Group: System/Kernel and hardware
 URL: http://pm-utils.freedesktop.org/wiki/
-Source0: pm-utils-%{version}.tar.gz
+Source0: http://pm-utils.freedesktop.org/releases/%{name}-%{version}.tar.gz
 Source1: pm-suspend.pam
 Source2: pm-hibernate.pam
 Source3: pm-powersave.pam
