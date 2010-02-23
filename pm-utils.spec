@@ -1,6 +1,6 @@
 %define name pm-utils
 %define version 1.2.6.1
-%define rel %mkrel 1
+%define rel %mkrel 2
 
 Name: %name
 Version: %version
@@ -44,7 +44,7 @@ BuildRequires: xmlto
 
 Obsoletes: pmscripts
 Obsoletes: suspend-scripts
-Provides: suspend-scripts = 1.27
+Provides: suspend-scripts = 1.27-2mdv2007.1
 
 Requires: usermode-consoleonly
 Requires: pciutils
