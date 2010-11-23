@@ -1,6 +1,7 @@
 %define name pm-utils
 %define version 1.4.1
-%define rel %mkrel 1
+%define rel %mkrel 2
+%define quirks 20100619
 
 Name: %name
 Version: %version
@@ -28,6 +29,7 @@ Source27: 15sound
 Source28: 91laptop-mode
 Source50: power-policy.conf
 Source51: pm-has-power-policy
+Source52: http://pm-utils.freedesktop.org/releases/pm-quirks-%{quirks}.tar.gz
 #- Mandriva
 Patch100: pm-utils-1.2.4-service_status.patch
 # (fc) 0.99.3-5mdv do not allow kernel hibernation if no resume partition is set
@@ -35,6 +37,8 @@ Patch101: pm-utils-1.2.4-checkresume.patch
 Patch102: pm-utils-1.2.4-s2diskdev.patch
 Patch103: pm-utils-1.2.0-uswsusp-default.patch
 Patch104: pm-utils-1.2.4-s2both_quirks.patch
+# (bor) ported from hal-info
+Patch105:   pm-quirks-20100619-untested_quirks.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 BuildRequires: pkgconfig 
@@ -76,12 +80,14 @@ when building programs that use %{name}.
 
 %prep
 %setup -q
+%setup -q -a 52
 #- Mandriva
 %patch100 -p1 -b .service_status
 %patch101 -p1 -b .checkresume
 %patch102 -p1 -b .s2diskdev
 %patch103 -p1 -b .uswsusp-default
 %patch104 -p1 -b .s2both_quirks
+%patch105 -p0
 
 %build
 %configure2_5x
@@ -117,6 +123,8 @@ install -m 755 %{SOURCE51} %{buildroot}%{_bindir}/pm-has-power-policy
 install -d -m 755 %{buildroot}/var/log
 install -m 600 /dev/null %{buildroot}/var/log/pm-suspend.log
 
+# quirks DB
+cp -a video-quirks %{buildroot}%{_libdir}/pm-utils
 
 %clean
 rm -rf %{buildroot}
