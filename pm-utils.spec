@@ -1,6 +1,6 @@
 %define name pm-utils
-%define version 1.2.6.1
-%define rel %mkrel 2
+%define version 1.4.1
+%define rel %mkrel 1
 
 Name: %name
 Version: %version
@@ -37,7 +37,6 @@ Patch103: pm-utils-1.2.0-uswsusp-default.patch
 Patch104: pm-utils-1.2.4-s2both_quirks.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
-BuildRequires: hal-devel 
 BuildRequires: pkgconfig 
 BuildRequires: dbus-devel
 BuildRequires: xmlto
@@ -52,7 +51,6 @@ Requires: radeontool
 %ifnarch %arm %mips
 Requires: vbetool
 %endif
-Requires: hal-info
 Requires: pm-fallback-policy
 #Requires: suspend-s2ram
 Requires: bootloader-utils
