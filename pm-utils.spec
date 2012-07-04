@@ -1,6 +1,6 @@
 %define name pm-utils
 %define version 1.4.1
-%define rel %mkrel 3
+%define rel %mkrel 4
 %define quirks 20100619
 
 Name: %name
@@ -54,10 +54,10 @@ Requires: pciutils
 Requires: radeontool
 %ifnarch %arm %mips
 Requires: vbetool
+Requires: bootloader-utils
 %endif
 Requires: pm-fallback-policy
 #Requires: suspend-s2ram
-Requires: bootloader-utils
 
 Suggests: suspend
 
@@ -115,7 +115,10 @@ for x in pm-hibernate pm-powersave pm-restart pm-shutdown pm-suspend pm-suspend-
 done
 popd
 
-install -m 755 %{SOURCE20} %{SOURCE21} %{SOURCE22} %{SOURCE23} %{SOURCE24} %{SOURCE25} %{SOURCE27} %{SOURCE28} %{buildroot}%{_libdir}/pm-utils/sleep.d/
+%ifnarch %arm %mips
+source20=%{SOURCE20}
+%endif
+install -m 755 ${source20} %{SOURCE21} %{SOURCE22} %{SOURCE23} %{SOURCE24} %{SOURCE25} %{SOURCE27} %{SOURCE28} %{buildroot}%{_libdir}/pm-utils/sleep.d/
 rm %{buildroot}%{_libdir}/pm-utils/sleep.d/01grub
 
 install -m 644 %{SOURCE50} -D %{buildroot}%{_sysconfdir}/dbus-1/system.d/power-policy.conf
