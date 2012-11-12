@@ -1,0 +1,15 @@
+--- pm-utils-1.2.4/pm/module.d/uswsusp.s2both_quirks	2009-03-23 18:33:06.000000000 +0100
++++ pm-utils-1.2.4/pm/module.d/uswsusp	2009-03-23 18:38:43.000000000 +0100
+@@ -108,11 +108,6 @@ if [ -z "$SUSPEND_HYBRID_MODULE" ] && 
+ 	SUSPEND_HYBRID_MODULE="uswsusp"
+ 	do_suspend_hybrid()
+ 	{
+-		uswsusp_get_quirks
+-		s2both --force $OPTS $RESUME_DEV
++		s2both --force $RESUME_DEV
+ 	}
+-	if [ "$METHOD" = "suspend_hybrid" ]; then
+-		add_before_hooks uswsusp_hooks
+-		add_module_help uswsusp_help
+-	fi
+ fi

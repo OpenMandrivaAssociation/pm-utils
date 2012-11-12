@@ -1,0 +1,52 @@
+--- pm-utils-1.2.4/pm/module.d/uswsusp.s2diskdev	2009-02-09 00:30:25.000000000 +0100
++++ pm-utils-1.2.4/pm/module.d/uswsusp	2009-03-20 17:49:38.000000000 +0100
+@@ -55,6 +55,17 @@ uswsusp_help()
+ 	echo "  --quirk-none"
+ }
+ 
++uswsusp_check_hibernate()
++{
++	local CONF_RESUME_DEV=`sed -rne 's,^resume device\s*=\s*(/.*),\1,;T;p' /etc/suspend.conf`
++
++	[ -n "$RESUME_DEV" -o -n "$CONF_RESUME_DEV" ] && \
++	[ -f /sys/power/disk ] && \
++	grep -q disk /sys/power/state && \
++	[ -c /dev/snapshot ]
++
++}
++
+ # This idiom is used for all sleep methods.  Only declare the actual
+ # do_ method if:
+ # 1: some other sleep module has not already done so, and
+@@ -81,26 +92,24 @@ if [ -z "$SUSPEND_MODULE" ] && command_e
+ fi
+ 
+ if [ -z "$HIBERNATE_MODULE" ] && \
+-	[ -f /sys/power/disk ] && \
+-	grep -q disk /sys/power/state && \
+-	[ -c /dev/snapshot ] &&
++	uswsusp_check_hibernate && \
+ 	command_exists s2disk; then
+ 	HIBERNATE_MODULE="uswsusp"
+ 	do_hibernate()
+ 	{
+-		s2disk
++		s2disk $RESUME_DEV
+ 	}
+ fi
+ 
+ if [ -z "$SUSPEND_HYBRID_MODULE" ] && 
+ 	grep -q mem /sys/power/state && \
+-	command_exists s2both && \
+-	check_hibernate; then
++	uswsusp_check_hibernate && \
++	command_exists s2both; then
+ 	SUSPEND_HYBRID_MODULE="uswsusp"
+ 	do_suspend_hybrid()
+ 	{
+ 		uswsusp_get_quirks
+-		s2both --force $OPTS 
++		s2both --force $OPTS $RESUME_DEV
+ 	}
+ 	if [ "$METHOD" = "suspend_hybrid" ]; then
+ 		add_before_hooks uswsusp_hooks

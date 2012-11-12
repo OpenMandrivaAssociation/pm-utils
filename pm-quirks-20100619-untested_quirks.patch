@@ -1,0 +1,213 @@
+From 573e9e91cc2f1c151398a44f7fcd9788261526fe Mon Sep 17 00:00:00 2001
+From: Andrey Borzenkov <arvidjaar@mail.ru>
+Date: Sat, 11 Sep 2010 10:48:15 +0400
+Subject: [PATCH] untested quirks
+
+---
+ 20-video-quirk-pm-acer.quirkdb    |    6 ++++--
+ 20-video-quirk-pm-asus.quirkdb    |    3 ++-
+ 20-video-quirk-pm-dell.quirkdb    |    6 ++++--
+ 20-video-quirk-pm-fujitsu.quirkdb |    5 +++++
+ 20-video-quirk-pm-hp.quirkdb      |    5 +++++
+ 20-video-quirk-pm-ibm.quirkdb     |   11 +++++++++++
+ 20-video-quirk-pm-misc.quirkdb    |   10 ++++++++++
+ 20-video-quirk-pm-sony.quirkdb    |    3 ++-
+ 20-video-quirk-pm-toshiba.quirkdb |   11 +++++++++--
+ 9 files changed, 52 insertions(+), 8 deletions(-)
+
+diff --git video-quirks/20-video-quirk-pm-acer.quirkdb video-quirks/20-video-quirk-pm-acer.quirkdb
+index f427012..5cb0a50 100644
+--- video-quirks/20-video-quirk-pm-acer.quirkdb
++++ video-quirks/20-video-quirk-pm-acer.quirkdb
+@@ -8,7 +8,8 @@
+     addquirk --quirk-s3-bios
+     addquirk --quirk-s3-mode
+    endmatch
+-   match system.hardware.product regex 3000|4100
++   # <!-- untested quirks 290, 8100 -->
++   match system.hardware.product regex 290|3000|4100|8100
+     addquirk --quirk-vbe-post
+     addquirk --quirk-vbestate-restore
+    endmatch
+@@ -90,7 +91,8 @@
+    match system.hardware.product regex 1640
+     addquirk --quirk-vbestate-restore
+    endmatch
+-   match system.hardware.product regex 1500|3000
++   # <!--  untested quirks : 2000 -->
++   match system.hardware.product regex 1500|2000|3000
+     addquirk --quirk-vbe-post
+     addquirk --quirk-vbestate-restore
+    endmatch
+diff --git video-quirks/20-video-quirk-pm-asus.quirkdb video-quirks/20-video-quirk-pm-asus.quirkdb
+index 7378a00..71623e7 100644
+--- video-quirks/20-video-quirk-pm-asus.quirkdb
++++ video-quirks/20-video-quirk-pm-asus.quirkdb
+@@ -21,7 +21,8 @@
+   match system.hardware.product regex ^W7J
+    addquirk --quirk-vbemode-restore
+   endmatch
+-  match system.hardware.product regex ^(L3000D|M3N |U3S |X51RL )
++  # <!-- untested quirks : L7000G -->
++  match system.hardware.product regex ^(L3000D|M3N |U3S |X51RL |L7000G)
+    addquirk --quirk-vbe-post
+    addquirk --quirk-vbestate-restore
+   endmatch
+diff --git video-quirks/20-video-quirk-pm-dell.quirkdb video-quirks/20-video-quirk-pm-dell.quirkdb
+index 3dc5a39..9916fae 100644
+--- video-quirks/20-video-quirk-pm-dell.quirkdb
++++ video-quirks/20-video-quirk-pm-dell.quirkdb
+@@ -21,7 +21,8 @@
+     addquirk --quirk-vbe-post
+     addquirk --quirk-vbemode-restore
+    endmatch
+-   match system.hardware.product regex C400|C840|D500|D505|D800|X200
++   # <!-- untested quirks 110L, D510 -->
++   match system.hardware.product regex C400|C840|D500|D505|D800|X200|110L|D510
+     addquirk --quirk-vbe-post
+     addquirk --quirk-vbestate-restore
+    endmatch
+@@ -73,7 +74,8 @@
+      addquirk --quirk-no-fb
+     endmatch
+    endmatch
+-   match system.hardware.product regex 5150|8000|8500
++   # <!-- untested quirks : 1200, 6000, 8100, 8200 -->
++   match system.hardware.product regex 5150|8000|8500|1200|6000|8100|8200
+     addquirk --quirk-vbe-post
+     addquirk --quirk-vbestate-restore
+    endmatch
+diff --git video-quirks/20-video-quirk-pm-fujitsu.quirkdb video-quirks/20-video-quirk-pm-fujitsu.quirkdb
+index 4d78e7a..6d72aad 100644
+--- video-quirks/20-video-quirk-pm-fujitsu.quirkdb
++++ video-quirks/20-video-quirk-pm-fujitsu.quirkdb
+@@ -37,6 +37,11 @@
+    endmatch
+   endmatch
+   match system.hardware.product regex_ncase lifebook
++   # <!-- untested quirks -->
++   match system.hardware.product regex S Series|S6120
++    addquirk --quirk-vbe-post
++    addquirk --quirk-vbestate-restore
++   endmatch
+    match system.hardware.product regex P7010D|S2110
+     addquirk --quirk-s3-bios
+    endmatch
+diff --git video-quirks/20-video-quirk-pm-hp.quirkdb video-quirks/20-video-quirk-pm-hp.quirkdb
+index c4f39ae..89aa0f5 100644
+--- video-quirks/20-video-quirk-pm-hp.quirkdb
++++ video-quirks/20-video-quirk-pm-hp.quirkdb
+@@ -67,6 +67,11 @@
+   endmatch
+  endmatch
+  match system.hardware.vendor regex ^Hewlett-Packard
++  # <!-- untested quirks -->
++  match system.hardware.product regex c8230|dv1000|zt3000|zd7000|Tx1100|TR1105
++   addquirk --quirk-vbe-post
++   addquirk --quirk-vbestate-restore
++  endmatch
+   match system.hardware.product regex ^COMPAQ MINI 500$
+    addquirk --quirk-s3-mode
+   endmatch
+diff --git video-quirks/20-video-quirk-pm-ibm.quirkdb video-quirks/20-video-quirk-pm-ibm.quirkdb
+index a125b93..000277e 100644
+--- video-quirks/20-video-quirk-pm-ibm.quirkdb
++++ video-quirks/20-video-quirk-pm-ibm.quirkdb
+@@ -1,5 +1,16 @@
+ # <?xml version="1.0" encoding="ISO-8859-1"?> <!-- -*- SGML -*- -->
+  match system.hardware.vendor regex ^IBM$
++  # <!-- untested quirks -->
++  match system.hardware.version regex ^(2682|2683|2692|2693|2696|2698|2699|2723|2724|2897|1829|1830|1831|1833|1836|1840|1841|1847|1848|1849|1850|1870|2647|2648|475S|2375|2884|2885|2369|2370|2371|2372|1864|1865|2526|2527|2528|1866|1867)
++   addquirk --quirk-vbe-post
++   addquirk --quirk-vbestate-restore
++  endmatch
++  # <!-- untested quirks -->
++  match system.hardware.version regex ^(2884|2885|2890|2891|)
++   addquirk --quirk-vbe-post
++   addquirk --quirk-vbestate-restore
++   addquirk --quirk-radeon-off
++  endmatch
+   match system.hardware.version regex ^ThinkPad R50e$
+    addquirk --quirk-save-pci
+    addquirk --quirk-dpms-on
+diff --git video-quirks/20-video-quirk-pm-misc.quirkdb video-quirks/20-video-quirk-pm-misc.quirkdb
+index 26cda34..a2ce237 100644
+--- video-quirks/20-video-quirk-pm-misc.quirkdb
++++ video-quirks/20-video-quirk-pm-misc.quirkdb
+@@ -266,6 +266,11 @@ match system.hardware.vendor regex ^ECS$
+   addquirk --quirk-vbe-post
+   addquirk --quirk-no-fb
+  endmatch
++ # <!-- untested quirk -->
++ match system.hardware.product regex G556 Centrino
++  addquirk --quirk-vbe-post
++  addquirk --quirk-vbestate-restore
++ endmatch
+ endmatch
+ match system.hardware.vendor regex ^Elitegroup$
+  match system.hardware.product regex ^ECS G320$
+@@ -360,6 +365,11 @@ match system.hardware.vendor regex ^OQO$
+  endmatch
+ endmatch
+ match system.hardware.vendor regex ^SHARP$
++ # <!-- untested quirk-->
++ match system.hardware.product regex PC-MM20 Series
++  addquirk --quirk-vbe-post
++  addquirk --quirk-vbestate-restore
++ endmatch
+  match system.hardware.product regex ^PC-AR10 
+   addquirk --quirk-none
+  endmatch
+diff --git video-quirks/20-video-quirk-pm-sony.quirkdb video-quirks/20-video-quirk-pm-sony.quirkdb
+index 0ce980b..a35a395 100644
+--- video-quirks/20-video-quirk-pm-sony.quirkdb
++++ video-quirks/20-video-quirk-pm-sony.quirkdb
+@@ -32,7 +32,8 @@ match system.hardware.vendor regex ^Sony Corporation$
+   addquirk --quirk-vbe-post
+   addquirk --quirk-vbemode-restore
+  endmatch
+- match system.hardware.product regex PCG-FX805
++ # <!-- untested quirk : PCG-U101 -->
++ match system.hardware.product regex PCG-FX805|PCG-U101
+   addquirk --quirk-vbe-post
+   addquirk --quirk-vbestate-restore
+  endmatch
+diff --git video-quirks/20-video-quirk-pm-toshiba.quirkdb video-quirks/20-video-quirk-pm-toshiba.quirkdb
+index 6922c6d..39be67e 100644
+--- video-quirks/20-video-quirk-pm-toshiba.quirkdb
++++ video-quirks/20-video-quirk-pm-toshiba.quirkdb
+@@ -2,6 +2,11 @@
+ match system.hardware.vendor regex ^TOSHIBA$
+ # <!-- Satellite Laptops -->
+  match system.hardware.product regex ^Satellite
++  # <!-- untested quirk -->
++  match system.hardware.product regex  ^libretto U100
++   addquirk --quirk-vbe-post
++   addquirk --quirk-vbestate-restore
++  endmatch
+   match system.hardware.product regex  M30X
+    addquirk --quirk-s3-bios
+   endmatch
+@@ -30,7 +35,8 @@ match system.hardware.vendor regex ^TOSHIBA$
+    addquirk --quirk-vbe-post
+    addquirk --quirk-vbemode-restore
+   endmatch
+-  match system.hardware.product regex A300D
++  # <!-- untested quirk : 1900 -->
++  match system.hardware.product regex A300D|1900
+    addquirk --quirk-vbe-post
+    addquirk --quirk-vbestate-restore
+   endmatch
+@@ -75,7 +81,8 @@ match system.hardware.vendor regex ^TOSHIBA$
+   match system.hardware.product regex M300
+    addquirk --quirk-s3-mode
+   endmatch
+-  match system.hardware.product regex A100
++  # <!-- untested quirks : A200,M200 -->
++  match system.hardware.product regex A100|A200|M200
+    addquirk --quirk-vbe-post
+    addquirk --quirk-vbestate-restore
+   endmatch
+-- 
+1.7.2.3
+

@@ -1,0 +1,28 @@
+--- pm-utils-1.2.4/pm/functions.in.service_status	2009-02-09 00:30:25.000000000 +0100
++++ pm-utils-1.2.4/pm/functions.in	2009-03-20 17:02:42.000000000 +0100
+@@ -141,16 +141,23 @@ fi
+ 
+ stopservice()
+ {
+-	if service "$1" status 2>/dev/null | grep -q -e running -e started
++	if service "$1" status 2>/dev/null
+ 	then
+ 		touch "${STORAGEDIR}/service:$1"
+ 		service "$1" stop
++	else
++		return $NA
+ 	fi
+ }
+ 
+ restartservice()
+ {
+-	[ -O "${STORAGEDIR}/service:$1" ] && service "$1" start
++	if [ -O "${STORAGEDIR}/service:$1" ]
++	then
++		service "$1" start
++	else
++		return $NA
++	fi
+ }
+ 
+ # Disable a hook.

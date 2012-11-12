@@ -1,0 +1,12 @@
+diff -p -up pm-utils-1.2.0/pm/defaults.uswsusp-default pm-utils-1.2.0/pm/defaults
+--- pm-utils-1.2.0/pm/defaults.uswsusp-default	2008-09-06 06:34:15.000000000 +0200
++++ pm-utils-1.2.0/pm/defaults	2008-09-12 18:10:40.000000000 +0200
+@@ -27,7 +27,7 @@
+ #   tuxonice  If your system has support for tuxonice, use this.
+ #
+ # The system defaults to "kernel" if this is commented out.
+-# SLEEP_MODULE="kernel"
++SLEEP_MODULE="uswsusp"
+ 
+ # These variables will be handled specially when we load files in 
+ # /etc/pm/config.d.

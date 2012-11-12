@@ -1,0 +1,25 @@
+--- pm-utils-1.2.4/pm/pm-functions.in.check_resume	2009-02-09 00:30:25.000000000 +0100
++++ pm-utils-1.2.4/pm/pm-functions.in	2009-03-20 16:19:31.000000000 +0100
+@@ -240,6 +240,14 @@ check_suspend() { [ -n "$SUSPEND_MODULE"
+ check_hibernate() { [ -n "$HIBERNATE_MODULE" ]; }
+ check_suspend_hybrid() { [ -n "$SUSPEND_HYBRID_MODULE" ]; }
+ 
++# check that resume device was specified on command line
++RESUME_DEV=`sed -rne 's/.*\bresume=(\S*).*/\1/;T;p' /proc/cmdline`
++case "$RESUME_DEV" in
++	LABEL=*|UUID=* )
++		RESUME_DEV=$(/sbin/blkid -l -o device -t "$RESUME_DEV")
++	;;
++esac
++
+ # allow autodetection of sleep methods
+ if [ "$SLEEP_MODULE" = "auto" ]; then
+     SLEEP_MODULE="tuxonice uswsusp"
+@@ -264,6 +272,7 @@ if [ -z "$SUSPEND_MODULE" ]; then
+ fi
+ 
+ if [ -z "$HIBERNATE_MODULE" ] && \
++	[ -n "$RESUME_DEV" ] && \
+ 	[ -f /sys/power/disk ] && \
+ 	grep -q disk /sys/power/state; then
+ 	HIBERNATE_MODULE="kernel"
