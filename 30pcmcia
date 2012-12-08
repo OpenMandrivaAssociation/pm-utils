@@ -1,0 +1,78 @@
+#!/bin/sh
+
+# Problems may occur mainly with scsi-pcmcia-cards on the cardbus. Use
+# RESTART_PCMCIA="yes" to stop the whole pcmcia-subsystem on a suspend and
+# to start it again after a resume. This can slow down suspend and resume
+# process.
+# Use PCMCIA_TIMEOUT in order to set up the PCMCIA timeout.
+# Some BIOSes are too buggy to handle cardctl suspend and cardctl resume
+# properly, in these cases cardctl eject and cardctl insert can be used instead.
+# However, this actually ejects the card on hardware supporting it, so if
+# the BIOS isn't buggy, it shouldn't be used. Set PCMCIA_BIOS_BUG to yes if
+# you are experiencing problems with PCMCIA cards after a resume.
+# Since buggy BIOSes seem to be far more common than hardware that can eject
+# PCMCIA cards (and it doesn't make a difference on systems that don't have
+# either), it is enabled by default.
+# If PCMCIA_BIOS_BUG is set to yes,PCMCIA_WAIT can be set to wait with the
+# suspend until the pccard is removed from the system.
+
+# RESTART_PCMCIA="yes"
+# PCMCIA_BIOS_BUG="yes"
+# PCMCIA_WAIT="yes"
+# PCMCIA_TIMEOUT="10"
+
+. "${PM_FUNCTIONS}"
+
+
+CARDCTL=/sbin/pccardctl
+
+suspend_pcmcia() {
+    if [ "$PCMCIA_BIOS_BUG" == "yes" ];then
+	$CARDCTL eject
+	if [ "$PCMCIA_WAIT" == "yes" ]; then
+	    wait_for_cards_removal
+	fi
+    else
+	$CARDCTL suspend
+    fi
+}
+
+test_cards_present () {
+    local c
+    for c in /sys/class/pcmcia_socket/*/card_type; do
+	cat $c > /dev/null 2>&1 && return 0
+    done
+    return 1
+}
+
+wait_for_cards_removal() {
+    while test_cards_present; do
+	logger "Waiting for pcmcia-device to be removed..."
+	sleep $PCMCIA_TIMEOUT
+    done
+}
+
+resume_pcmcia() {
+    if [ "$PCMCIA_BIOS_BUG" == "yes" ]; then
+	$CARDCTL insert
+    else
+	$CARDCTL resume
+    fi
+}
+
+case "$1" in
+	hibernate|suspend)
+		if [ "$RESTART_PCMCIA" == "yes" ]; then
+			suspend_pcmcia
+		fi
+		;;
+	thaw|resume)
+		if [ "$RESTART_PCMCIA" == "yes" ]; then
+			resume_pcmcia
+		fi
+		;;
+	*)
+		;;
+esac
+
+exit $?

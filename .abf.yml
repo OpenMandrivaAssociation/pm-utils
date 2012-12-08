@@ -1,21 +1,3 @@
 sources:
-  "01bootloader:"	760c05563cfd6d6197c2f91cc69f79c8894d110b
-  "06mysqld:"	a9c9f490bde254df81ae1687e04282e11a390bf0
-  "10network:"	88e8b402ee861d1a2f3c42192653c8e1c5946708
-  "15sound:"	3b42c61b929a2a158c85ef18ecac31d51f599e9e
-  "30pcmcia:"	97d90453089b002cbff673f5b58757e9708080ec
-  "40xlock:"	88902bd5e987bac65790d0e540b52f2d2de1b046
-  "91laptop-mode:"	1713ac576daa2bc13e1fc966439a81597a8019e5
-  "92disk:"	260f94d7518947d6f807cac7a8a9233879b54787
-  "pm-has-power-policy:"	ca5a24a678b22a81fe69c3cb2fa3970acc33b3da
-  "pm-hibernate.app:"	da39a3ee5e6b4b0d3255bfef95601890afd80709
-  "pm-hibernate.pam:"	4d673b29e06d2a94fc551bb1bb5faf8472d4bcaa
-  "pm-powersave.app:"	da39a3ee5e6b4b0d3255bfef95601890afd80709
-  "pm-powersave.pam:"	4d673b29e06d2a94fc551bb1bb5faf8472d4bcaa
-  "pm-quirks-20100619.tar.gz:"	01aab63e2bb8c0f8d81d325ffce1fa49af0e2f3a
-  "pm-suspend.app:"	da39a3ee5e6b4b0d3255bfef95601890afd80709
-  "pm-suspend-hybrid.app:"	da39a3ee5e6b4b0d3255bfef95601890afd80709
-  "pm-suspend-hybrid.pam:"	4d673b29e06d2a94fc551bb1bb5faf8472d4bcaa
-  "pm-suspend.pam:"	4d673b29e06d2a94fc551bb1bb5faf8472d4bcaa
-  "pm-utils-1.4.1.tar.gz:"	9aacb9b4a5f11f751d94f5257c6c54460f106197
-  "power-policy.conf:"	57cdf04cc5f040cd3022fde5eaec3cfe8a47b3c0
+  "pm-quirks-20100619.tar.gz": 01aab63e2bb8c0f8d81d325ffce1fa49af0e2f3a
+  "pm-utils-1.4.1.tar.gz": 9aacb9b4a5f11f751d94f5257c6c54460f106197

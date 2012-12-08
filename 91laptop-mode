@@ -1,0 +1,13 @@
+#!/bin/bash
+
+case "$1" in
+     hibernate|suspend)
+	;;
+    thaw|resume) 
+	service laptop-mode reload
+	;;
+    *)
+	;;
+esac
+
+exit $?

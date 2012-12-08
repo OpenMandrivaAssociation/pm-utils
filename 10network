@@ -1,0 +1,32 @@
+#!/bin/sh
+
+. "${PM_FUNCTIONS}"
+
+
+suspend_network() {
+    stopservice netfs
+    stopservice nfs
+    stopservice network
+    return $?
+}
+
+resume_network() {
+    restartservice network
+    service network-up start
+    restartservice nfs
+    restartservice netfs
+    return $?
+}
+
+case "$1" in
+	hibernate|suspend)
+		suspend_network
+		;;
+	thaw|resume)
+		resume_network
+		;;
+	*)
+		;;
+esac
+
+exit $?

@@ -1,0 +1,50 @@
+#!/bin/sh
+
+# Some broken BIOSes, like those found in early Gericom 3xC notebooks,
+# won't wake up harddisks from suspend to disk unless they're set to PIO mode
+# and 16-bit.
+# Don't activate the following two lines unless you're getting
+# "hda: lost interrupt" after returning from a suspend to disk.
+# SUSPEND_DISK="-q -X0 -q -c0 -q -d0 -q -u0 -q -S0"
+# RESUME_DISK="-q -X66 -q -c1 -q -d1 -q -u1 -q -S30"
+
+. "${PM_FUNCTIONS}"
+
+run_hdparm() {
+    local HDPARM_OPTIONS=$*
+
+    [ -x /sbin/hdparm ] || return 1
+    for i in /proc/ide/hd*; do
+	DRIVE=/dev/`echo $i |sed -e "s,.*/,,g"`
+	if test "x`cat $i/media`" = "xdisk"; then
+	    hdparm $HDPARM_OPTIONS $DRIVE
+	fi
+    done
+}
+
+suspend_disk() {
+    if [ -n "$SUSPEND_DISK" ]; then
+	run_hdparm $SUSPEND_DISK
+    fi
+    return 0
+}
+
+resume_disk() {
+    if [ -n "$RESUME_DISK" ]; then
+	run_hdparm $RESUME_DISK
+    fi
+    return 0
+}
+
+case "$1" in
+	hibernate|suspend)
+		suspend_disk
+		;;
+	thaw|resume)
+		resume_disk
+		;;
+	*)
+		;;
+esac
+
+exit $?
