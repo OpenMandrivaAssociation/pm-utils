@@ -1,6 +1,6 @@
 %define name pm-utils
 %define version 1.4.1
-%define rel %mkrel 4
+%define rel %mkrel 7
 %define quirks 20100619
 
 Name: %name
