@@ -1,0 +1,34 @@
+#!/bin/bash
+
+default_resume_kernel()
+{
+    BOOT_IMAGE=`sed -e "s/.*BOOT_IMAGE=\(\S*\).*/\1/" /proc/cmdline`
+    REBOOTIN="/usr/sbin/rebootin"
+    if [ -z "$BOOT_IMAGE" ];then
+	 echo "Can't determine lilo boot entry";
+	 exit;
+    fi
+    if [ ! -x $REBOOTIN ]; then
+	 echo "rebootin binary not executable or not found";
+	 return 1
+    fi
+    if ! ($REBOOTIN -n $BOOT_IMAGE 2>/dev/null ); then
+	 echo "*** Unable to find lilo boot entry $BOOT_IMAGE in lilo.conf. ***"
+	 echo "*** You have to resume with the kernel you're using currently ***"
+	 echo "*** otherwise, you won't be able to resume this session ***"
+    fi;
+
+    return 0
+}
+
+RETVAL=0
+case "$1" in
+	hibernate)
+		default_resume_kernel
+		RETVAL=$?
+		;;
+	*)
+		;;
+esac
+
+exit $RETVAL

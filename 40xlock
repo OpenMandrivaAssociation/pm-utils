@@ -1,0 +1,123 @@
+#!/bin/sh
+
+# LOCK_XFREE="yes"
+
+. "${PM_FUNCTIONS}"
+
+pidof X >/dev/null || exit 0;
+
+pidgetenv() {
+    echo $(perl -an -e 's|.*'$2'=([^\000]*).*|\1|m;print $_, "\n"' < /proc/$1/environ)
+}
+
+lock_xfree() {
+    # LOCKED will list the displays we already locked 
+    # They will contain stuff like " :0- :1-", - being simplify use of grep
+
+    # Lock all xscreensaver users
+    xscreensaver_started="$(pidof xscreensaver)"
+    if [ -n "$xscreensaver_started" ]; then
+        for pid in $xscreensaver_started; do
+            RUSER=$(pidgetenv $pid USER)
+            RDISPLAY=$(pidgetenv $pid DISPLAY)
+            su $RUSER -c "xscreensaver-command -display $RDISPLAY -lock" >/dev/null 2>&1 && LOCKED="$LOCKED $RDISPLAY-"
+        done
+    fi
+
+    # Lock all gnome-screensaver users
+    gnomescreensaver_started="$(pidof gnome-screensaver)"
+    if [ -n "$gnomescreensaver_started" ]; then
+        for pid in $gnomecreensaver_started; do
+            RUSER=$(pidgetenv $pid USER)
+            RDISPLAY=$(pidgetenv $pid DISPLAY)
+            su $RUSER -c "DISPLAY='$DISPLAY' gnome-screensaver-command --lock" >/dev/null 2>&1 && LOCKED="$LOCKED $RDISPLAY-"
+        done
+   fi
+
+   # Lock all xautolock users
+   xautolock_started="$(pidof xautolock)"
+   if [ -n "$xautolock_started" ]; then
+	   for pid in $xautolock_started; do
+		   RUSER=$(pidgetenv $pid USER)
+		   RDISPLAY=$(pidgetenv $pid DISPLAY)
+		   su $USER -c "DISPLAY=$RDISPLAY xautolock -locknow" &  2>&1 >/dev/null && LOCKED="$LOCKED $RDISPLAY-"
+	   done
+   fi
+
+    # Lock all kde sessions
+    kde_started=$(pidof "kdesktop [kdeinit]")
+    if [ -n "$kde_started" ];then 
+        dcop --all-sessions --all-users kdesktop KScreensaverIface 'lock()' >/dev/null 2>&1
+        kdesktop_lock="$(pidof kdesktop_lock)"
+        if [[ -n $kdesktop_lock ]]; then
+            for pid in $kdesktop_lock; do
+                RDISPLAY=$(pidgetenv $pid DISPLAY)
+                LOCKED="$LOCKED $RDISPLAY-"
+            done
+        fi
+    fi
+	
+    # Now try locking remaining displays
+    s2u_started="$(pidof s2u)"
+    if [ -n "$s2u_started" ]; then
+        for pid in $s2u_started; do
+            RUSER=$(pidgetenv $pid USER)
+            RDISPLAY=$(pidgetenv $pid DISPLAY) # Can be empty on some defunct s2u
+            if [[ -n $RDISPLAY ]] && ! echo $LOCKED | grep "$RDISPLAY-" >/dev/null; then
+                DBUS_SESSION_BUS_PID="$(pidgetenv $pid DBUS_SESSION_BUS_PID)"
+                DBUS_SESSION_BUS_ADDRESS="$(pidgetenv $pid DBUS_SESSION_BUS_ADDRESS)"
+                XAUTHORITY="$(pidgetenv $pid XAUTHORITY)"
+                TMPDIR="$(pidgetenv $pid TMPDIR)"
+                su $RUSER -c "TMPDIR='$TMPDIR' DBUS_SESSION_BUS_PID='$DBUS_SESSION_BUS_PID' DBUS_SESSION_BUS_ADDRESS='$DBUS_SESSION_BUS_ADDRESS' XAUTHORITY='$XAUTHORITY' gnome-screensaver --display $RDISPLAY"
+                if su $RUSER -c "DBUS_SESSION_BUS_PID='$DBUS_SESSION_BUS_PID' DBUS_SESSION_BUS_ADDRESS='$DBUS_SESSION_BUS_ADDRESS' DISPLAY='$RDISPLAY' gnome-screensaver-command --lock" >/dev/null 2>&1; then
+                    LOCKED="$LOCKED $RDISPLAY-"
+                else	      
+                    su $RUSER -c "xscreensaver -display $RDISPLAY -nosplash & xscreensaver-command -display $RDISPLAY -lock" >/dev/null 2>&1 || \
+                    su $RUSER -c "xlock -display $RDISPLAY &" >/dev/null 2>&1 && \
+                    LOCKED="$LOCKED $RDISPLAY-"
+                fi
+            fi
+        done
+    fi
+}
+
+unlock_xfree() {
+    # Prompt the user to unlock
+
+    xscreensaver_started="$(pidof xscreensaver)"
+    if [ -n "$xscreensaver_started" ]; then
+        for pid in $xscreensaver_started; do
+            RUSER=$(pidgetenv $pid USER)
+            RDISPLAY=$(pidgetenv $pid DISPLAY)
+            su $RUSER -c "xscreensaver-command -display $RDISPLAY -deactivate" >/dev/null 2>&1
+        done
+    fi
+
+    gnomescreensaver_started="$(pidof gnome-screensaver)"
+    if [ -n "$gnomescreensaver_started" ]; then
+        for pid in $gnomescreensaver_started; do
+            RUSER=$(pidgetenv $pid USER)
+            RDISPLAY=$(pidgetenv $pid DISPLAY)
+            DBUS_SESSION_BUS_PID=$(pidgetenv $pid DBUS_SESSION_BUS_PID)
+            DBUS_SESSION_BUS_ADDRESS=$(pidgetenv $pid DBUS_SESSION_BUS_ADDRESS)
+            su $RUSER -c "DBUS_SESSION_BUS_PID='$DBUS_SESSION_BUS_PID' DBUS_SESSION_BUS_ADDRESS='$DBUS_SESSION_BUS_ADDRESS' DISPLAY='$RDISPLAY' gnome-screensaver-command --poke" >/dev/null 2>&1
+        done
+    fi
+}
+
+case "$1" in
+	hibernate|suspend)
+		if [ "$LOCK_XFREE" == "yes" ]; then
+			lock_xfree
+		fi
+		;;
+	thaw|resume)
+		if [ "$LOCK_XFREE" == "yes" ]; then
+			unlock_xfree
+		fi
+		;;
+	*)
+		;;
+esac
+
+exit $?

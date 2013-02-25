@@ -1,0 +1,85 @@
+#!/bin/sh
+
+# RESTORE_SOUND=yes
+
+# Forcefully kill and restart applications using the sound card.
+# This possibility is available for sound drivers that don't properly handle
+# suspending. 
+
+. "${PM_FUNCTIONS}"
+
+SOUND_RUN=/var/run/pm-soundprogs
+
+stop_sound() {
+    rm -rf $SOUND_RUN
+    if [ -c /dev/sndstat ] ; then
+        for n in `cat /dev/sndstat 2>/dev/null|grep Open\ by|awk {'print $3'}|uniq`; do
+            SOUNDPID=`echo $n|awk -F / {'print $1'}`
+            SOUNDPROG=`ps -p $SOUNDPID -o args=`
+            SOUNDUSER=`ls -ld /proc/$SOUNDPID |awk {'print $3'}`
+            SOUNDDISPLAY=`perl -e 's/\000/\n/g;' -p /proc/$SOUNDPID/environ|grep ^DISPLAY=|cut -d= -f2-`
+
+            kill $SOUNDPID
+            ps "$SOUNDPID" &>/dev/null && kill -9 $SOUNDPID
+            logger \
+            "pm-utils: Program $SOUNDPROG ($SOUNDPID) of user $SOUNDUSER on display $SOUNDDISPLAY terminated."	    
+        done
+    fi
+
+    for n in `lsof -n|grep /dev|egrep ' (14|116),'|sed -e 's/ \+/|/g'|cut '-d|' -f1-3`; do
+        SOUNDPID=`echo $n |cut '-d|' -f2`
+        SOUNDPROG=`ps -p $SOUNDPID -o args=`
+        SOUNDUSER=`echo $n |cut '-d|' -f3`
+        if [ -f $SOUND_RUN ] && grep -q "$SOUNDPROG.*$SOUNDUSER.*" $SOUND_RUN;then
+            continue;
+        fi
+        SOUNDDISPLAY=`perl -e 's/\000/\n/g;' -p /proc/$SOUNDPID/environ|grep ^DISPLAY=|cut -d= -f2-`
+
+        kill $SOUNDPID
+        ps "$SOUNDPID" &>/dev/null && kill -9 $SOUNDPID
+
+        echo "$SOUNDPROG|$SOUNDPID|$SOUNDUSER|$SOUNDDISPLAY" >>$SOUND_RUN
+        logger "pm-utils: Program $SOUNDPROG ($SOUNDPID) of user $SOUNDUSER on display $SOUNDDISPLAY terminated."
+
+    done
+    # We unload the modules later to give the driver some time
+    # to spin down.
+
+}
+
+start_sound() {
+    if [ -f $SOUND_RUN ] ; then
+        # at least we can restart the programs using sound on
+        # the right display
+        while read n; do
+            SOUNDPROG=`echo $n|cut '-d|' -f1`
+            SOUNDPID=`echo $n|cut '-d|' -f2`
+            SOUNDUSER=`echo $n|cut '-d|' -f3`
+            SOUNDDISPLAY=`echo $n|cut '-d|' -f4`
+
+            su --shell="/bin/bash" - "$SOUNDUSER" -c \
+                "source /etc/profile;[ -f ~/.bashrc ] && \
+                    source ~/.bashrc;[ -f ~/.bash_profile ] && \
+                    source ~/.bash_profile;export DISPLAY="$SOUNDDISPLAY";$SOUNDPROG &"
+            logger "pm-utils: Program $SOUNDPROG started as user $SOUNDUSER on display $SOUNDDISPLAY."
+        done < $SOUND_RUN
+        rm -f $SOUND_RUN 
+    fi
+}
+
+case "$1" in
+    hibernate|suspend)
+        if [ "$RESTORE_SOUND" == "yes" ] ; then
+            stop_sound
+        fi
+        ;;
+    thaw|resume)
+        if [ "$RESTORE_SOUND" == "yes" ] ; then
+            start_sound
+        fi
+        ;;
+    *)
+        ;;
+esac
+
+exit $?
