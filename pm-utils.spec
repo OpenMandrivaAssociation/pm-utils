@@ -81,8 +81,7 @@ Suggests: suspend
 # http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=612710#59
 # (ahmad) 18-05-2011
 # (cg) Updated: Let's replace it completely (mga#5603)
-Provides: laptop-mode-tools = 1.61-2
-Obsoletes: laptop-mode-tools < 1.61-2
+%rename	laptop-mode-tools 1.61-2
 
 Conflicts: apmd < 3.2.2-11mdv2007.1
 Conflicts: mkinitrd < 4.2.17-27mdv2007.1
