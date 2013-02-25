@@ -40,6 +40,21 @@ Patch104: pm-utils-1.2.4-s2both_quirks.patch
 # (bor) ported from hal-info
 Patch105:   pm-quirks-20100619-untested_quirks.patch
 
+# Use append instead of write for init_logfile (#660329)
+Patch200: pm-utils-1.4.1-init-logfile-append.patch
+# Fix typo in 55NetworkManager (#722759)
+Patch201: pm-utils-1.4.1-networkmanager-typo-fix.patch
+# Add support for grub2 in 01grub hook
+Patch202: pm-utils-1.4.1-grub2.patch
+# Fix hooks exit code logging
+Patch203: pm-utils-1.4.1-hook-exit-code-log.patch
+# Fix line spacing in logs to be easier to read (#750755)
+Patch204: pm-utils-1.4.1-log-line-spacing-fix.patch
+# Fix NetworkManager dbus methods (fd.o #42500 / RH #740342)
+Patch205: pm-utils-1.4.1-nm_method.patch
+# Add support for in-kernel (from kernel 3.6) suspend to both (#843657)
+Patch206: pm-utils-1.4.1-add-in-kernel-suspend-to-both.patch
+
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 BuildRequires: pkgconfig 
 BuildRequires: dbus-devel
@@ -96,6 +111,14 @@ when building programs that use %{name}.
 %patch103 -p1 -b .uswsusp-default
 %patch104 -p1 -b .s2both_quirks
 %patch105 -p0
+
+%patch200 -p1 -b .init-logfile-append
+%patch201 -p1 -b .network-manager-typo-fix.patch
+%patch202 -p1 -b .grub2
+%patch203 -p1 -b .hook-exit-code-log
+%patch204 -p1 -b .log-line-spacing-fix
+%patch205 -p1 -b .nm_method
+%patch206 -p1 -b .add-in-kernel-suspend-to-both
 
 %build
 %configure2_5x
