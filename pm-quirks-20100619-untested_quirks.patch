@@ -17,8 +17,8 @@ Subject: [PATCH] untested quirks
 
 diff --git video-quirks/20-video-quirk-pm-acer.quirkdb video-quirks/20-video-quirk-pm-acer.quirkdb
 index f427012..5cb0a50 100644
---- video-quirks/20-video-quirk-pm-acer.quirkdb
-+++ video-quirks/20-video-quirk-pm-acer.quirkdb
+--- ./video-quirks/20-video-quirk-pm-acer.quirkdb
++++ ./video-quirks/20-video-quirk-pm-acer.quirkdb
 @@ -8,7 +8,8 @@
      addquirk --quirk-s3-bios
      addquirk --quirk-s3-mode
@@ -41,8 +41,8 @@ index f427012..5cb0a50 100644
     endmatch
 diff --git video-quirks/20-video-quirk-pm-asus.quirkdb video-quirks/20-video-quirk-pm-asus.quirkdb
 index 7378a00..71623e7 100644
---- video-quirks/20-video-quirk-pm-asus.quirkdb
-+++ video-quirks/20-video-quirk-pm-asus.quirkdb
+--- ./video-quirks/20-video-quirk-pm-asus.quirkdb
++++ ./video-quirks/20-video-quirk-pm-asus.quirkdb
 @@ -21,7 +21,8 @@
    match system.hardware.product regex ^W7J
     addquirk --quirk-vbemode-restore
@@ -55,8 +55,8 @@ index 7378a00..71623e7 100644
    endmatch
 diff --git video-quirks/20-video-quirk-pm-dell.quirkdb video-quirks/20-video-quirk-pm-dell.quirkdb
 index 3dc5a39..9916fae 100644
---- video-quirks/20-video-quirk-pm-dell.quirkdb
-+++ video-quirks/20-video-quirk-pm-dell.quirkdb
+--- ./video-quirks/20-video-quirk-pm-dell.quirkdb
++++ ./video-quirks/20-video-quirk-pm-dell.quirkdb
 @@ -21,7 +21,8 @@
      addquirk --quirk-vbe-post
      addquirk --quirk-vbemode-restore
@@ -79,8 +79,8 @@ index 3dc5a39..9916fae 100644
     endmatch
 diff --git video-quirks/20-video-quirk-pm-fujitsu.quirkdb video-quirks/20-video-quirk-pm-fujitsu.quirkdb
 index 4d78e7a..6d72aad 100644
---- video-quirks/20-video-quirk-pm-fujitsu.quirkdb
-+++ video-quirks/20-video-quirk-pm-fujitsu.quirkdb
+--- ./video-quirks/20-video-quirk-pm-fujitsu.quirkdb
++++ ./video-quirks/20-video-quirk-pm-fujitsu.quirkdb
 @@ -37,6 +37,11 @@
     endmatch
    endmatch
@@ -95,8 +95,8 @@ index 4d78e7a..6d72aad 100644
     endmatch
 diff --git video-quirks/20-video-quirk-pm-hp.quirkdb video-quirks/20-video-quirk-pm-hp.quirkdb
 index c4f39ae..89aa0f5 100644
---- video-quirks/20-video-quirk-pm-hp.quirkdb
-+++ video-quirks/20-video-quirk-pm-hp.quirkdb
+--- ./video-quirks/20-video-quirk-pm-hp.quirkdb
++++ ./video-quirks/20-video-quirk-pm-hp.quirkdb
 @@ -67,6 +67,11 @@
    endmatch
   endmatch
@@ -111,8 +111,8 @@ index c4f39ae..89aa0f5 100644
    endmatch
 diff --git video-quirks/20-video-quirk-pm-ibm.quirkdb video-quirks/20-video-quirk-pm-ibm.quirkdb
 index a125b93..000277e 100644
---- video-quirks/20-video-quirk-pm-ibm.quirkdb
-+++ video-quirks/20-video-quirk-pm-ibm.quirkdb
+--- ./video-quirks/20-video-quirk-pm-ibm.quirkdb
++++ ./video-quirks/20-video-quirk-pm-ibm.quirkdb
 @@ -1,5 +1,16 @@
  # <?xml version="1.0" encoding="ISO-8859-1"?> <!-- -*- SGML -*- -->
   match system.hardware.vendor regex ^IBM$
@@ -132,8 +132,8 @@ index a125b93..000277e 100644
     addquirk --quirk-dpms-on
 diff --git video-quirks/20-video-quirk-pm-misc.quirkdb video-quirks/20-video-quirk-pm-misc.quirkdb
 index 26cda34..a2ce237 100644
---- video-quirks/20-video-quirk-pm-misc.quirkdb
-+++ video-quirks/20-video-quirk-pm-misc.quirkdb
+--- ./video-quirks/20-video-quirk-pm-misc.quirkdb
++++ ./video-quirks/20-video-quirk-pm-misc.quirkdb
 @@ -266,6 +266,11 @@ match system.hardware.vendor regex ^ECS$
    addquirk --quirk-vbe-post
    addquirk --quirk-no-fb
@@ -160,8 +160,8 @@ index 26cda34..a2ce237 100644
   endmatch
 diff --git video-quirks/20-video-quirk-pm-sony.quirkdb video-quirks/20-video-quirk-pm-sony.quirkdb
 index 0ce980b..a35a395 100644
---- video-quirks/20-video-quirk-pm-sony.quirkdb
-+++ video-quirks/20-video-quirk-pm-sony.quirkdb
+--- ./video-quirks/20-video-quirk-pm-sony.quirkdb
++++ ./video-quirks/20-video-quirk-pm-sony.quirkdb
 @@ -32,7 +32,8 @@ match system.hardware.vendor regex ^Sony Corporation$
    addquirk --quirk-vbe-post
    addquirk --quirk-vbemode-restore
@@ -174,8 +174,8 @@ index 0ce980b..a35a395 100644
   endmatch
 diff --git video-quirks/20-video-quirk-pm-toshiba.quirkdb video-quirks/20-video-quirk-pm-toshiba.quirkdb
 index 6922c6d..39be67e 100644
---- video-quirks/20-video-quirk-pm-toshiba.quirkdb
-+++ video-quirks/20-video-quirk-pm-toshiba.quirkdb
+--- ./video-quirks/20-video-quirk-pm-toshiba.quirkdb
++++ ./video-quirks/20-video-quirk-pm-toshiba.quirkdb
 @@ -2,6 +2,11 @@
  match system.hardware.vendor regex ^TOSHIBA$
  # <!-- Satellite Laptops -->

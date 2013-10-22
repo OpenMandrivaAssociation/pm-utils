@@ -1,100 +1,84 @@
-%define name pm-utils
-%define version 1.4.1
-%define rel %mkrel 7
 %define quirks 20100619
 
-Name: %name
-Version: %version
-Release: %rel 
-Summary: Power management utilities and scripts
-License: GPL
-Group: System/Kernel and hardware
-URL: http://pm-utils.freedesktop.org/wiki/
-Source0: http://pm-utils.freedesktop.org/releases/%{name}-%{version}.tar.gz
-Source1: pm-suspend.pam
-Source2: pm-hibernate.pam
-Source3: pm-powersave.pam
-Source4: pm-suspend.app
-Source5: pm-hibernate.app
-Source6: pm-powersave.app
-Source7: pm-suspend-hybrid.app
-Source8: pm-suspend-hybrid.pam
-Source20: 01bootloader
-Source21: 10network
-Source22: 92disk
-Source23: 30pcmcia
-Source24: 40xlock
-Source25: 06mysqld
-Source27: 15sound
-Source28: 91laptop-mode
-Source50: power-policy.conf
-Source51: pm-has-power-policy
-Source52: http://pm-utils.freedesktop.org/releases/pm-quirks-%{quirks}.tar.gz
+Name:		pm-utils
+Version:	1.4.1
+Release:	7
+Summary:	Power management utilities and scripts
+License:	GPLv2
+Group:		System/Kernel and hardware
+Url:		http://pm-utils.freedesktop.org/wiki/
+Source0:	http://pm-utils.freedesktop.org/releases/%{name}-%{version}.tar.gz
+Source1:	pm-suspend.pam
+Source2:	pm-hibernate.pam
+Source3:	pm-powersave.pam
+Source4:	pm-suspend.app
+Source5:	pm-hibernate.app
+Source6:	pm-powersave.app
+Source7:	pm-suspend-hybrid.app
+Source8:	pm-suspend-hybrid.pam
+Source20:	01bootloader
+Source21:	10network
+Source22:	92disk
+Source23:	30pcmcia
+Source24:	40xlock
+Source25:	06mysqld
+Source27:	15sound
+Source28:	91laptop-mode
+Source50:	power-policy.conf
+Source51:	pm-has-power-policy
+Source52:	http://pm-utils.freedesktop.org/releases/pm-quirks-%{quirks}.tar.gz
 #- Mandriva
-Patch100: pm-utils-1.2.4-service_status.patch
+Patch100:	pm-utils-1.2.4-service_status.patch
 # (fc) 0.99.3-5mdv do not allow kernel hibernation if no resume partition is set
-Patch101: pm-utils-1.2.4-checkresume.patch
-Patch102: pm-utils-1.2.4-s2diskdev.patch
-Patch103: pm-utils-1.2.0-uswsusp-default.patch
-Patch104: pm-utils-1.2.4-s2both_quirks.patch
+Patch101:	pm-utils-1.2.4-checkresume.patch
+Patch102:	pm-utils-1.2.4-s2diskdev.patch
+Patch103:	pm-utils-1.2.0-uswsusp-default.patch
+Patch104:	pm-utils-1.2.4-s2both_quirks.patch
 # (bor) ported from hal-info
-Patch105:   pm-quirks-20100619-untested_quirks.patch
+Patch105:	pm-quirks-20100619-untested_quirks.patch
 
 # Use append instead of write for init_logfile (#660329)
-Patch200: pm-utils-1.4.1-init-logfile-append.patch
+Patch200:	pm-utils-1.4.1-init-logfile-append.patch
 # Fix typo in 55NetworkManager (#722759)
-Patch201: pm-utils-1.4.1-networkmanager-typo-fix.patch
+Patch201:	pm-utils-1.4.1-networkmanager-typo-fix.patch
 # Add support for grub2 in 01grub hook
-Patch202: pm-utils-1.4.1-grub2.patch
+Patch202:	pm-utils-1.4.1-grub2.patch
 # Fix hooks exit code logging
-Patch203: pm-utils-1.4.1-hook-exit-code-log.patch
+Patch203:	pm-utils-1.4.1-hook-exit-code-log.patch
 # Fix line spacing in logs to be easier to read (#750755)
-Patch204: pm-utils-1.4.1-log-line-spacing-fix.patch
+Patch204:	pm-utils-1.4.1-log-line-spacing-fix.patch
 # Fix NetworkManager dbus methods (fd.o #42500 / RH #740342)
-Patch205: pm-utils-1.4.1-nm_method.patch
+Patch205:	pm-utils-1.4.1-nm_method.patch
 # Add support for in-kernel (from kernel 3.6) suspend to both (#843657)
-Patch206: pm-utils-1.4.1-add-in-kernel-suspend-to-both.patch
+Patch206:	pm-utils-1.4.1-add-in-kernel-suspend-to-both.patch
 
-BuildRoot: %{_tmppath}/%{name}-%{version}-root
-BuildRequires: pkgconfig 
-BuildRequires: dbus-devel
-BuildRequires: xmlto
-
-Obsoletes: pmscripts
-Obsoletes: suspend-scripts
-Provides: suspend-scripts = 1.27-2mdv2007.1
-
-Requires: usermode-consoleonly
-Requires: pciutils
-Requires: radeontool
+BuildRequires:	xmlto
+BuildRequires:	pkgconfig(dbus-1)
+Requires:	usermode-consoleonly
+Requires:	pciutils
+Requires:	radeontool
 %ifnarch %arm %mips
-Requires: vbetool
-Requires: bootloader-utils
+Requires:	vbetool
+Requires:	bootloader-utils
 %endif
-Requires: pm-fallback-policy
-#Requires: suspend-s2ram
-
-Suggests: suspend
-
+Requires:	pm-fallback-policy
+#Requires:	suspend-s2ram
+Suggests:	suspend
 # conflict with laptop-mode-tools, its functionalities overlap pm-utils, and
 # upstream thinks it should conflict
 # http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=612710#59
 # (ahmad) 18-05-2011
-# (cg) Updated: Let's replace it completely (mga#5603)
+# (cg) Updated:	Let's replace it completely (mga#5603)
 %rename	laptop-mode-tools 1.61-2
-
-Conflicts: apmd < 3.2.2-11mdv2007.1
-Conflicts: mkinitrd < 4.2.17-27mdv2007.1
-Conflicts: initscripts < 8.48-5mdv2007.1
 
 %description
 The pm-utils package contains utilities and scripts
 useful for power management.
 
 %package devel
-Summary: Files for development using %{name}
-Group: Development/Other
-Requires: %{name} = %{version}
+Summary:	Files for development using %{name}
+Group:		Development/Other
+Requires:	%{name} = %{version}-%{release}
 
 %description devel
 This package contains the pkg-config files for development
@@ -104,28 +88,13 @@ when building programs that use %{name}.
 %setup -q
 %setup -q -a 52
 #- Mandriva
-%patch100 -p1 -b .service_status
-%patch101 -p1 -b .checkresume
-%patch102 -p1 -b .s2diskdev
-%patch103 -p1 -b .uswsusp-default
-%patch104 -p1 -b .s2both_quirks
-%patch105 -p0
-
-%patch200 -p1 -b .init-logfile-append
-%patch201 -p1 -b .network-manager-typo-fix.patch
-%patch202 -p1 -b .grub2
-%patch203 -p1 -b .hook-exit-code-log
-%patch204 -p1 -b .log-line-spacing-fix
-%patch205 -p1 -b .nm_method
-%patch206 -p1 -b .add-in-kernel-suspend-to-both
+%apply_patches
 
 %build
 %configure2_5x
 %make
 
 %install
-rm -rf %{buildroot}
-
 %makeinstall_std
 
 install -m 755 -d %{buildroot}%{_sysconfdir}/pam.d
@@ -159,9 +128,6 @@ install -m 600 /dev/null %{buildroot}/var/log/pm-suspend.log
 # quirks DB
 cp -a video-quirks %{buildroot}%{_libdir}/pm-utils
 
-%clean
-rm -rf %{buildroot}
-
 %post
 if [ ! -a %{_var}/log/pm-suspend.log ] ; then
         install -m 600 /dev/null %{_var}/log/pm-suspend.log
@@ -169,7 +135,6 @@ fi
 
 
 %files
-%defattr(-,root,root)
 %docdir %{_docdir}/%{name}
 %{_docdir}/%{name}/*
 %dir %{_sysconfdir}/pm
@@ -186,5 +151,5 @@ fi
 %ghost %verify(not md5 size mtime) %{_var}/log/pm-suspend.log
 
 %files devel
-%defattr(-,root,root)
 %{_libdir}/pkgconfig/%{name}.pc
+
