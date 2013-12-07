@@ -2,7 +2,7 @@
 
 Name:		pm-utils
 Version:	1.4.1
-Release:	9
+Release:	10
 Summary:	Power management utilities and scripts
 License:	GPLv2
 Group:		System/Kernel and hardware
