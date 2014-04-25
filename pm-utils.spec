@@ -70,7 +70,7 @@ Suggests:	suspend
 # http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=612710#59
 # (ahmad) 18-05-2011
 # (cg) Updated:	Let's replace it completely (mga#5603)
-%rename	laptop-mode-tools 1.61-2
+%rename	laptop-mode-tools 1.61
 
 %description
 The pm-utils package contains utilities and scripts
@@ -146,6 +146,7 @@ fi
 %{_sysconfdir}/security/console.apps/*
 %{_sysconfdir}/pam.d/*
 %{_sysconfdir}/dbus-1/system.d/power-policy.conf
+%{_sysconfdir}/pm/config.d/eeepc
 %{_bindir}/*
 %{_sbindir}/*
 %{_libdir}/pm-utils
