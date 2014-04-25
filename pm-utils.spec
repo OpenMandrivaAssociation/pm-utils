@@ -2,7 +2,7 @@
 
 Name:		pm-utils
 Version:	1.4.1
-Release:	11
+Release:	12
 Summary:	Power management utilities and scripts
 License:	GPLv2
 Group:		System/Kernel and hardware
@@ -27,6 +27,7 @@ Source28:	91laptop-mode
 Source50:	power-policy.conf
 Source51:	pm-has-power-policy
 Source52:	http://pm-utils.freedesktop.org/releases/pm-quirks-%{quirks}.tar.gz
+Source53:	eeepc
 #- Mandriva
 Patch100:	pm-utils-1.2.4-service_status.patch
 # (fc) 0.99.3-5mdv do not allow kernel hibernation if no resume partition is set
@@ -124,6 +125,8 @@ install -m 644 %{SOURCE50} -D %{buildroot}%{_sysconfdir}/dbus-1/system.d/power-p
 install -m 755 %{SOURCE51} %{buildroot}%{_bindir}/pm-has-power-policy
 install -d -m 755 %{buildroot}/var/log
 install -m 600 /dev/null %{buildroot}/var/log/pm-suspend.log
+# (tpg) eeepc
+install -m 755 %{SOURCE53} %{buildroot}%{_sysconfdir}/pm/config.d/
 
 # quirks DB
 cp -a video-quirks %{buildroot}%{_libdir}/pm-utils
@@ -132,7 +135,6 @@ cp -a video-quirks %{buildroot}%{_libdir}/pm-utils
 if [ ! -a %{_var}/log/pm-suspend.log ] ; then
         install -m 600 /dev/null %{_var}/log/pm-suspend.log
 fi
-
 
 %files
 %docdir %{_docdir}/%{name}

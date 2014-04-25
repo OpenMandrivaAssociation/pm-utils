@@ -1,0 +1,1 @@
+SUSPEND_MODULES="ath9k ehci_hcd"
