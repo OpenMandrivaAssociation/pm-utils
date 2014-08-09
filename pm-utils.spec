@@ -2,7 +2,7 @@
 
 Name:		pm-utils
 Version:	1.4.1
-Release:	14
+Release:	15
 Summary:	Power management utilities and scripts
 License:	GPLv2
 Group:		System/Kernel and hardware
@@ -58,7 +58,7 @@ BuildRequires:	pkgconfig(dbus-1)
 Requires:	usermode-consoleonly
 Requires:	pciutils
 Requires:	radeontool
-%ifnarch %arm %mips
+%ifnarch %armx %mips
 Requires:	vbetool
 Requires:	bootloader-utils
 %endif
@@ -88,11 +88,10 @@ when building programs that use %{name}.
 %prep
 %setup -q
 %setup -q -a 52
-#- Mandriva
 %apply_patches
 
 %build
-%configure2_5x
+%configure
 %make
 
 %install
@@ -155,4 +154,3 @@ fi
 
 %files devel
 %{_libdir}/pkgconfig/%{name}.pc
-
