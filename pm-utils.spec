@@ -2,7 +2,7 @@
 
 Name:		pm-utils
 Version:	1.4.1
-Release:	15
+Release:	16
 Summary:	Power management utilities and scripts
 License:	GPLv2
 Group:		System/Kernel and hardware
@@ -71,6 +71,7 @@ Suggests:	suspend
 # (ahmad) 18-05-2011
 # (cg) Updated:	Let's replace it completely (mga#5603)
 %rename	laptop-mode-tools 1.61
+Requires:	tuned
 
 %description
 The pm-utils package contains utilities and scripts
