@@ -89,7 +89,7 @@ when building programs that use %{name}.
 %prep
 %setup -q
 %setup -q -a 52
-%apply_patches
+%autopatch -p1
 
 %build
 %configure
