@@ -6,7 +6,7 @@ Release:	18
 Summary:	Power management utilities and scripts
 License:	GPLv2
 Group:		System/Kernel and hardware
-Url:		http://pm-utils.freedesktop.org/wiki/
+Url:		https://pm-utils.freedesktop.org/wiki/
 Source0:	http://pm-utils.freedesktop.org/releases/%{name}-%{version}.tar.gz
 Source1:	pm-suspend.pam
 Source2:	pm-hibernate.pam
