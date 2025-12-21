@@ -53,6 +53,11 @@ Patch205:	pm-utils-1.4.1-nm_method.patch
 # Add support for in-kernel (from kernel 3.6) suspend to both (#843657)
 Patch206:	pm-utils-1.4.1-add-in-kernel-suspend-to-both.patch
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	xmlto
 BuildRequires:	pkgconfig(dbus-1)
 Requires:	usermode-consoleonly
